@@ -1,4 +1,4 @@
-# Install ABAQUS 6.14-5 on Ubuntu 16.04 64bit
+# Install ABAQUS 6.14-2 on Ubuntu 18.04 64bit
 
 ## Preparative
 
@@ -25,6 +25,59 @@ sudo apt-get install libjpeg62
 sudo apt-get install libstdc++5
 ```
 
+- Check and install java
+````
+java -version
+````
+
+- Install permission GUI tool Eiciel frpm Synaptic package manager and grant permission to folders/files 
+
+
+## License server configuration
+
+- Copy the license file in the License directory of Abaqus and rename it as `ABAQUS.lic`.
+
+- Edit the `ABAQUS.lic` file.
+
+```
+gedit ~/abaqus/License/ABAQUS.lic
+```
+
+In the text editor that will be opened, edit the `HOST_NAME` in fist row of the file.
+
+- Create a log file in the License directory.
+
+```
+gedit ~/abaqus/License/ABAQUS.log
+```
+
+- Edit the .bashrc file in the home.
+
+```
+sudo gedit ~/.bashrc
+```
+ 
+in the text editor that will be opened, add the following rows at the top:
+
+```
+#abaqus
+export LM_LICENSE_FILE=27011@PCNAME
+alias abalic=/home/ACCOUNTNAME/abaqus/License/lmgrd\ -c\ /home/ACCOUNTNAME/abaqus/License/ABAQUS.lic\ -l\ +/home/ACCOUNTNAME/abaqus/License/ABAQUS.log
+alias abaqus='XLIB_SKIP_ARGB_VISUALS=1 /home/ACCOUNTNAME/abaqus/Commands/abaqus'
+alias cae='abaqus cae -mesa'
+```
+  
+where ACCOUNTNAME is the name of your pc account and PCNAME is the name of your PC.
+
+- Reboot the computer.
+
+- Launch the license server:
+
+```
+abalic
+```
+
+## ABAQUS Product Installation
 ## Starting installation via .iso file
 
 - Mount the .iso file.
@@ -68,51 +121,8 @@ and follow the graphical installation using defaults settings.
 exit
 ```
 
-## License server configuration
 
-- Copy the license file in the License directory of Abaqus and rename it as `ABAQUS.lic`.
-
-- Edit the `ABAQUS.lic` file.
-
-```
-gedit ~/abaqus/License/ABAQUS.lic
-```
-
-In the text editor that will be opened, edit the `HOST_NAME` in fist row of the file.
-
-- Create a log file in the License directory.
-
-```
-gedit ~/abaqus/License/ABAQUS.log
-```
-
-- Edit the .bashrc file in the home.
-
-```
-sudo gedit ~/.bashrc
-```
- 
-in the text editor that will be opened, add the following rows at the top:
-
-```
-#abaqus
-export LM_LICENSE_FILE=27011@PCNAME
-alias abalic=/home/ACCOUNTNAME/abaqus/License/lmgrd\ -c\ /home/ACCOUNTNAME/abaqus/License/ABAQUS.lic\ -l\ +/home/ACCOUNTNAME/abaqus/License/ABAQUS.log
-alias abaqus='XLIB_SKIP_ARGB_VISUALS=1 /home/ACCOUNTNAME/abaqus/Commands/abaqus'
-alias cae='abaqus cae -mesa'
-```
-  
-where ACCOUNTNAME is the name of your pc account and PCNAME is the name of your PC.
-
-- Reboot the computer.
-
-## ABAQUS Product Installation
-
-- Launch the license server:
-
-```
-abalic
-```
+## Run CAE
 
 - Following the graphical installation using defaults settings.
 
